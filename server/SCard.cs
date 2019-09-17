@@ -42,6 +42,10 @@ namespace server
         {
             if (containsTrigger(triggerType))
                 _triggers[triggerType](this, source, param);
+            
+            // then show it to someone
+            // or hide from someone
+            viewAction(triggerType, source, param);
             // if a trigger from range 20..100
             // then its a trigger, what will trigger
             // other cards with %OtherTrigger% case
@@ -50,6 +54,11 @@ namespace server
                 return;
             foreach (SCard otherCard in _game.cards.select(SFilter.inGame(), SFilter.otherThen(this)).cards)
                 otherCard.trigger((STType)(triggerNum + 100), this);
+        }
+        void viewAction(STType triggerType, SCard source, int param)
+        {
+            if (triggerType == STType.onDraw) game.logger.show(this, this.host);
+            if (triggerType == STType.onDeploy) game.logger.show(this);
         }
         // default copy with clear status and default basepower
         // remains all triggers

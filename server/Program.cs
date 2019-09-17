@@ -15,7 +15,7 @@ namespace server
             SPlay play = new SPlay(
                 new SPlayers(new SPlayer(), new SPlayer()),
                 new SCards(SCard.testArcher, SCard.testArcher, SCard.testSapper, SCard.testArcher, SCard.testArcher, SCard.testSapper),
-                new SCards(SCard.testArcher, SCard.testArcher, SCard.testSkirmisher, SCard.testSkirmisher));
+                new SCards(SCard.testSkirmisher, SCard.testSkirmisher, SCard.testSkirmisher, SCard.testSkirmisher));
 
             play.start();
             Console.ReadKey();

@@ -46,7 +46,7 @@ namespace server
             get
             {
                 SCard card = new SCard(SCardName.sSkirmisher, SClan.scoetaels, SRarity.bronze, 6, STag.dwarf, STag.soldier);
-                card.setTrigger(STType.onDeploy, (me, source, none) => { me.maybe.ifonly(me.dealDamage(3).isEmpty).boost(3, me); });
+                card.setTrigger(STType.onDeploy, (me, source, none) => { me.maybe.ifonly(me.dealDamageEnemy(3).isEmpty).boost(3, me); });
                 return card;
             }
         }

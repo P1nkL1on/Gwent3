@@ -57,15 +57,19 @@ namespace server
 
         public void start()
         {
-            foreachPlayer((p) => {
+            foreachPlayer((p) =>
+            {
                 drawCard(p, 3);
-            });    
+            });
+            logger.flush(0);
+            _cards.cards[17].maybe.move(new SLocation(SRow.ranged));
+            logger.flush(0);
         }
 
         void foreachPlayer(PlayerAction action) { for (int i = 0; i < _playerCount; ++i) action(i); }
         SCards deck(SCard playersCard) { return deck(playersCard.host); }
         SCards deck(int player) { return _cards.select(SFilter.hostBy(player), SFilter.located(SPlace.deck)); }
-        SCards drawCard(int player, int cardCount = 1) { return deck(player).first(cardCount).show(player).move(SPlace.hand); }
+        SCards drawCard(int player, int cardCount = 1) { return deck(player).first(cardCount).move(SPlace.hand); }
 
         // shuffle a card from somewhere to a deck
         // puts it to deck
@@ -94,7 +98,7 @@ namespace server
             (allSameName ? deck.first() : deck.first(1, SFilter.mulliganName(card.name)))
                 .move(SPlace.hand);
         }
-        SCards shuffleDeck(int player){ return _cards.shuffle(_random, SFilter.hostBy(player), SFilter.located(SPlace.deck)); }
+        SCards shuffleDeck(int player) { return _cards.shuffle(_random, SFilter.hostBy(player), SFilter.located(SPlace.deck)); }
 
         //_cards.cards[7].maybe.move(new SLocation(SRow.meele));
         //_cards.cards[8].maybe.move(new SLocation(SRow.meele));

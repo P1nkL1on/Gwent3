@@ -27,7 +27,6 @@ namespace server
         public SCards defaultCopy() { SCards res = new SCards(); foreachCard((c) => { res.addCard(c.defaultCopy()); }); return res; }
         public SCards range(int start = 0, int range = -1) { return new SCards(range < 0 ? _cards.GetRange(start, _cards.Count - start) : _cards.GetRange(start, Math.Min(range, _cards.Count - start))); }
         public SCards range(List<int> indices) { SCards rangeCards = new SCards(); for (int i = 0; i < indices.Count; ++i) rangeCards.addCard(_cards[indices[i]]); return rangeCards; }
-        SLogger logger { get { return isEmpty ? new SLoggerInvalid() : _cards.First().game.logger; } }
 
         public void setHost(int host) { foreachCard((c) => { c.host = host; }); }
         // do not execute any triggers
@@ -65,6 +64,7 @@ namespace server
             });
             return new SCards(cards);
         }
+        public int indexOf(SCard card) { return _cards.IndexOf(card); }
         public bool contains(SCard card) { return _cards.Contains(card); }
         public bool isAll(params CardPredicat[] filters) { return select(filters).count == count; }
         public SCards first(int count = 1, params CardPredicat[] filters) { return select(filters).range(0, count); }
@@ -127,7 +127,6 @@ namespace server
         public SCards move(SPlace place){return move(new SLocation(place));}
         public SCards move(SLocation location)
         {
-            logger.move(this, location);
             List<STType> triggers = new List<STType>();
             foreachCard((c) =>
             {
@@ -161,6 +160,9 @@ namespace server
                 if (location.Equals(c.location) && location.place == SPlace.board && location.row != c.location.row) trigger = STType.onMove;
 
                 // then move and remember trigger
+                // SLocation prevLocation = c.location;
+                c.game.logger.move(c, location, c.location);
+                
                 c.location = location;
                 triggers.Add(trigger);
             });
@@ -172,7 +174,6 @@ namespace server
                     _cards[i].trigger(triggers[i]);
             return this;
         }
-        public SCards show(int player = -1) { logger.show(this, player); return this; }
         // damage all selected units by specified X
         // returns count of units died this way
         public SCards damage(int X, SCard source = null)
