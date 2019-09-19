@@ -27,5 +27,7 @@ namespace server
         bool _isResilent;
         bool _isImmune;
         bool _isAmbush;
+
+        public SStatusView view() { return new SStatusView(_isLocked, _isSpy, _isResilent, _isImmune, _isAmbush); }
     }
 }

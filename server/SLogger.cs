@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace server
 {
-    class SCardView
-    {
-        public SCardView(SCard card) { }
-    }
+    
     class SLogger
     {
         public bool isVisible(SCard card, int player) { return _views[player].ContainsKey(card.id); }
@@ -22,7 +19,7 @@ namespace server
             }
             if (isVisible(card, player))
                 return;
-            _views[player].Add(card.id, new SCardView(card));
+            _views[player].Add(card.id, card.view());
             log(String.Format("sh {0} <{1}>", cardView(card, player), card.name.ToString()), player);
         }
         public void hide(SCard card, int player = -1)

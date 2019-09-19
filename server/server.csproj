@@ -48,6 +48,7 @@
     <Compile Include="SCardDescription.cs" />
     <Compile Include="SCardName.cs" />
     <Compile Include="SCards.cs" />
+    <Compile Include="SCardView.cs" />
     <Compile Include="SClan.cs" />
     <Compile Include="SFilter.cs" />
     <Compile Include="SLogger.cs" />

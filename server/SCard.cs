@@ -90,7 +90,13 @@ namespace server
             _triggers = new Dictionary<STType, STrigger>();
             _timer = STimer.none();
         }
-
+        public SCardView view() {
+            List<STag> _newTags = new List<STag>();
+            foreach (STag tag in _tags)
+                _newTags.Add(tag);
+            return new SCardView(_name, _newTags, _clan, _rarity, _locationView(), _power.view(), _status.view()); 
+        }
+        SLocationView _locationView() { return new SLocationView(_location, game.cards.select(SFilter.located(_location.place), SFilter.hostBy(_player)).indexOf(this), _player); }
         public override string ToString() { return String.Format("(name={0}, id={1})", _name.ToString(), _id); }
     }
 

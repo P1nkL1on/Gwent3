@@ -80,6 +80,8 @@ namespace server
             return X > 0;
         }
 
+        public SPowerView view() { return new SPowerView(power, _basePower, _defaultPower, _armor); }
+
         int _power;
         int _basePower;
         int _defaultPower;
