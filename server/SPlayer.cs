@@ -8,6 +8,7 @@ namespace server
 {
     class  SPlayer
     {
+        public void recieve(List<string> info) { Console.WriteLine("==="); foreach (string message in info) Console.WriteLine(message); }
         public SPlayerResponse response(SRequest request)
         {
             SPlayerResponse response = request.autoResponce;
@@ -16,8 +17,9 @@ namespace server
         SPlayerResponse solve(SRequest request)
         {
             Console.WriteLine("Request " + request.requestQuestion);
-            Console.ReadKey();
-            return new SPlayerResponse();
+            int answer;
+            while (!int.TryParse(Console.ReadLine(), out answer));
+            return new SPlayerResponse(answer);
         }
     }
 }

@@ -120,7 +120,7 @@ namespace server
         public SCards targetOneCard(SCard source, string requestString)
         {
             SRequestSelectOneCard request = new SRequestSelectOneCard(requestString, this, source);
-            return select(SFilter.hasId(source.game.players.solve(request).value));
+            return select(SFilter.hasId(source.game.players.solve(request, source.game.logger).value));
         }
 
         // move a group of units to somewhere
@@ -161,8 +161,7 @@ namespace server
 
                 // then move and remember trigger
                 // SLocation prevLocation = c.location;
-                c.game.logger.move(c, location, c.location);
-                
+                c.game.logger.move(c, location);
                 c.location = location;
                 triggers.Add(trigger);
             });

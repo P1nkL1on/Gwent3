@@ -61,9 +61,7 @@ namespace server
             {
                 drawCard(p, 3);
             });
-            logger.flush(0);
             _cards.cards[17].maybe.move(new SLocation(SRow.ranged));
-            logger.flush(0);
         }
 
         void foreachPlayer(PlayerAction action) { for (int i = 0; i < _playerCount; ++i) action(i); }
